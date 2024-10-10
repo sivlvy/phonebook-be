@@ -40,7 +40,39 @@ const signUpUser = async (req, res) => {
   });
 };
 
-const signInUser = (req, res) => {};
+const signInUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ where: { email } });
+
+  if (!user) {
+    throw HttpError(404, "Email or password is incorrect");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw HttpError(401, "Invalid password");
+  }
+
+  const token = jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+    },
+    JWT_SECRET,
+    { expiresIn: "23h" },
+  );
+
+  res.status(200).json({
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    },
+    token,
+  });
+};
 
 const signOutUser = (req, res) => {};
 
