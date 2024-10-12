@@ -6,7 +6,7 @@ const { DB_NAME, DB_USER, DB_HOST, DB_PORT, DB_PASSWORD } = process.env;
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST || "localhost",
-  port: DB_PORT || 5432, // Використовуйте порт PostgreSQL за замовчуванням
+  port: DB_PORT || 5432,
   dialect: "postgres",
 });
 

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const HttpError = require("../helpers/HttpError");
 const ctrlWrapper = require("../helpers/ctrlWrapper");
@@ -18,9 +18,9 @@ const signUpUser = async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log(hashedPassword);
+
   const newUser = await User.create({ email, name, password: hashedPassword });
-  console.log(password);
+
   const token = jwt.sign(
     {
       id: newUser.id,
@@ -30,13 +30,15 @@ const signUpUser = async (req, res) => {
     { expiresIn: "23h" },
   );
 
+  await User.update({ access_token: token }, { where: { id: newUser.id } });
+
   res.status(201).json({
     user: {
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
+      access_token: token,
     },
-    token,
   });
 };
 
@@ -64,6 +66,8 @@ const signInUser = async (req, res) => {
     { expiresIn: "23h" },
   );
 
+  await User.update({ access_token: token }, { where: { id: user.id } });
+
   res.status(200).json({
     user: {
       id: user.id,
@@ -74,7 +78,13 @@ const signInUser = async (req, res) => {
   });
 };
 
-const signOutUser = (req, res) => {};
+const signOutUser = async (req, res) => {
+  const { id } = req.user;
+
+  await User.update({ token: "" }, { where: { id } });
+
+  res.status(204).json({ message: "Logout successful" });
+};
 
 const currentUser = (req, res) => {};
 
