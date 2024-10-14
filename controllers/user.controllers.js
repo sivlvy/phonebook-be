@@ -81,12 +81,24 @@ const signInUser = async (req, res) => {
 const signOutUser = async (req, res) => {
   const { id } = req.user;
 
-  await User.update({ token: "" }, { where: { id } });
+  if (!req.user || !req.user.id) {
+    throw HttpError(401, "Not authorized");
+  }
 
-  res.status(204).json({ message: "Logout successful" });
+  await User.update({ access_token: "" }, { where: { id } });
+
+  res.status(200).json({ message: "Logout successful" });
 };
 
-const currentUser = (req, res) => {};
+const currentUser = (req, res) => {
+  if (!req.user) {
+    throw HttpError(401, "Not authorized");
+  }
+
+  const { name, email, access_token } = req.user;
+
+  res.status(200).json({ user: { name, email, access_token } });
+};
 
 module.exports = {
   signUpUser: ctrlWrapper(signUpUser),

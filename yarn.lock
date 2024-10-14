@@ -83,7 +83,7 @@ balanced-match@^1.0.0:
 
 bcryptjs@^2.4.3:
   version "2.4.3"
-  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  resolved "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz"
   integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
 
 binary-extensions@^2.0.0:
@@ -749,6 +749,11 @@ postgres-interval@^1.1.0:
   integrity sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==
   dependencies:
     xtend "^4.0.0"
+
+prettier@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-3.3.3.tgz"
+  integrity sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==
 
 proxy-addr@~2.0.7:
   version "2.0.7"
