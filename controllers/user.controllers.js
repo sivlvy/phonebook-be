@@ -46,7 +46,7 @@ const signInUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ where: { email } });
-
+  console.log(email, password);
   if (!user) {
     throw HttpError(404, "Email or password is incorrect");
   }

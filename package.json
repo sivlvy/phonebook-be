@@ -4,7 +4,6 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "lint": "eslint . --fix",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
