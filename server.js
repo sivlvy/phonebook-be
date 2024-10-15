@@ -4,8 +4,7 @@ const express = require("express");
 const userRoutes = require("./routes/user.routes");
 const contactsRouter = require("./routes/contacts.routes");
 const app = express();
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.DB_PORT || 5432;
 
 app.use(express.json());
 
